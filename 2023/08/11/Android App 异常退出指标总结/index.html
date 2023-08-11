@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Austin">
+    
+    <title>
+        
+            Android App 异常退出指标总结 |
+        
+        Austin&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":false},"style":{"primary_color":"#1E90FF","avatar":"/images/avatar.jpg","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Hab dich lange nicht gesehen."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Austin&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Android App 异常退出指标总结</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Austin</span>
+                        
+                            <span class="author-label">ECNU</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-11 16:00:00</span>
+        <span class="mobile">2023-08-11 16:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Android/">Android</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Android/">Android</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%A8%B3%E5%AE%9A%E6%80%A7/">稳定性</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <blockquote>
+<p>👉 在入职大厂稳定性组之后遇到了很多不了解的 异常退出指标，于是准备写一篇总结的文章</p>
+</blockquote>
+<h1 id="Android-异常退出指标"><a href="#Android-异常退出指标" class="headerlink" title="Android 异常退出指标"></a>Android 异常退出指标</h1><ul>
+<li><h3 id="Java-Crash"><a href="#Java-Crash" class="headerlink" title="Java Crash"></a><u><em><strong>Java Crash</strong></em></u></h3><p>  “Java Crash” 是指在Java编程语言中，应用程序在运行过程中由于错误或异常而导致程序终止或崩溃的情况。Java程序的崩溃可能会导致程序无法正常运行，甚至可能引起系统的不稳定。</p>
+<p>  Java Crash 可能由各种原因引起，例如：</p>
+<ul>
+<li><p><strong>空指针引用（NullPointerException）</strong>： 当尝试访问一个空对象引用（null引用）上的方法或属性时，会抛出空指针异常，导致程序崩溃。</p>
+</li>
+<li><p><strong>数组越界（ArrayIndexOutOfBoundsException）</strong>： 当尝试访问数组中不存在的索引位置时，会抛出数组越界异常，导致程序崩溃。</p>
+</li>
+<li><p><strong>内存溢出（OutOfMemoryError）</strong>： 当程序尝试分配更多内存资源而导致内存不足时，会抛出内存溢出异常，导致程序崩溃。</p>
+</li>
+<li><p><strong>未捕获的异常</strong>： 如果程序中某个异常没有被适当地捕获和处理，它可能会传播到程序的顶层，并导致程序崩溃。</p>
+</li>
+<li><p><strong>栈溢出（StackOverflowError）</strong>： 当递归函数调用层次太深，导致函数调用栈溢出时，会抛出栈溢出异常，导致程序崩溃。</p>
+</li>
+<li><p><strong>虚拟机错误</strong>： 有时候虚拟机自身也可能遇到问题，例如无法启动、配置错误等，导致程序崩溃。</p>
+</li>
+</ul>
+<p>  为了避免 Java Crash，开发人员应该编写健壮的代码，正确地处理各种异常情况，避免空指针引用和数组越界等问题，进行适当的内存管理，避免递归调用过深，以及监控和调试程序以解决未知问题。使用适当的异常处理机制可以帮助程序更容易地从错误中恢复，而不是直接崩溃。</p>
+<hr>
+  <br>
+</li>
+<li><h3 id="Native-Crash"><a href="#Native-Crash" class="headerlink" title="Native Crash"></a><u><em><strong>Native Crash</strong></em></U></h3><p>  Android Native Crash（本地崩溃）是指在Android应用程序中，由于本地代码（通常是C或C++代码）发生错误或异常而导致应用程序崩溃的情况。这种崩溃通常涉及应用程序的底层代码，如使用NDK编写的本地库。</p>
+<p>  本地崩溃的可能原因有很多，以下是一些常见的原因：</p>
+<ul>
+<li><p><strong>空指针引用（Null Pointer Dereference）</strong>： 本地代码中使用了空指针，导致访问无效内存地址，触发崩溃。</p>
+</li>
+<li><p><strong>内存访问越界（Buffer Overflow）</strong>： 本地代码中数组或缓冲区的访问超过了其范围，导致读写无效内存，引发崩溃。</p>
+</li>
+<li><p><strong>无效的内存释放（Invalid Memory Deallocation）</strong>： 释放了已经被释放或不属于本地库管理的内存块，可能导致后续访问崩溃。</p>
+</li>
+<li><p><strong>多线程同步问题（Multithreading Issues）</strong>： 多个线程并发执行本地代码，缺乏正确的同步机制可能导致数据竞争和崩溃。</p>
+</li>
+<li><p><strong>本地代码逻辑错误（Logic Errors in Native Code）</strong>： 本地代码中的逻辑错误可能导致错误的计算或控制流程，从而引发崩溃。</p>
+</li>
+<li><p><strong>调用标准C库函数错误（Incorrect Use of Standard C Library Functions）</strong>： 不正确地使用C标准库函数，如内存分配和字符串操作，可能引发崩溃。</p>
+</li>
+<li><p><strong>硬件相关问题（Hardware-related Issues）</strong>： 涉及硬件资源的问题，如访问非法硬件寄存器，可能导致崩溃。</p>
+</li>
+<li><p><strong>调用Java代码错误（Incorrect Invocation of Java Code）</strong>： 从本地代码中调用Java方法时的错误使用，可能导致崩溃。</p>
+</li>
+<li><p><strong>NDK版本兼容性问题（NDK Version Compatibility Issues）</strong>： 使用不兼容的NDK版本或库可能导致崩溃。</p>
+</li>
+<li><p><strong>其他库的错误（Errors in Other Libraries）</strong>： 本地代码使用的外部库可能存在错误，影响了应用程序的稳定性。</p>
+</li>
+</ul>
+<p>  为了解决本地崩溃问题，开发人员可以采取以下措施：</p>
+<ul>
+<li>仔细检查本地代码，避免使用空指针和无效的内存访问。</li>
+<li>使用适当的同步机制来处理多线程问题。正确释放内存，并避免出现内存泄漏。</li>
+<li>使用C和C++编码标准，避免常见的编程错误。</li>
+<li>使用调试工具和日志记录来追踪和诊断本地崩溃。</li>
+<li>在NDK的应用中，确保正确选择和配置NDK版本，以及依赖库的版本。</li>
+<li>在处理本地崩溃问题时，了解常见原因和采取适当的调试和优化措施是非常重要的。</li>
+</ul>
+<hr>
+  <br>
+</li>
+<li><h3 id="ANR-Application-Not-Response"><a href="#ANR-Application-Not-Response" class="headerlink" title=" ANR (Application Not Response) "></a><u> <em><strong>ANR (Application Not Response)</strong></em> </u></h3><p>  ANR（Application Not Responding）是指Android应用程序在一段时间内未能响应用户输入或操作的情况。当应用程序变得无法响应时，Android系统会认为应用程序出现了问题，并弹出一个ANR对话框，通知用户应用程序未响应。</p>
+<p>  ANR可能由多种原因引起，以下是一些常见的原因：</p>
+<ul>
+<li><p><strong>主线程阻塞</strong>： 主线程是负责处理用户界面的线程。如果在主线程上执行了耗时操作，比如网络请求、数据库查询或复杂的计算，会导致主线程阻塞，从而使应用程序无法响应用户操作。</p>
+</li>
+<li><p><strong>长时间的I&#x2F;O操作</strong>： 当应用程序在主线程上执行长时间的I&#x2F;O操作，如读写文件、数据库操作等，主线程会被阻塞，导致应用程序无法响应。</p>
+</li>
+<li><p><strong>死锁（Deadlock）</strong>： 死锁是指多个线程互相等待对方释放锁的状态。如果发生死锁，线程无法继续执行，导致应用程序无法响应。</p>
+</li>
+<li><p><strong>UI线程上的耗时计算</strong>： 如果在UI线程上执行复杂的计算，会导致UI线程阻塞，影响应用程序的响应性。</p>
+</li>
+<li><p><strong>未捕获的异常</strong>： 如果在应用程序中某处发生未捕获的异常，会导致应用程序崩溃或阻塞，从而引发ANR。</p>
+</li>
+<li><p><strong>广播接收器阻塞</strong>： 如果在广播接收器中执行耗时操作，可能会导致主线程阻塞，从而引发ANR。</p>
+</li>
+<li><p><strong>前台服务超时</strong>： 前台服务在一定时间内未完成任务可能引发ANR。</p>
+</li>
+<li><p><strong>系统资源耗尽</strong>： 如果应用程序占用了过多的内存、CPU等系统资源，可能导致系统资源不足，从而导致ANR。</p>
+</li>
+</ul>
+<p>  为了避免ANR问题，开发人员可以采取以下措施：</p>
+<ul>
+<li>在主线程上避免执行耗时操作，将耗时操作放在后台线程中进行。</li>
+<li>使用异步任务、线程池或Handler等机制来处理后台操作。</li>
+<li>使用适当的同步机制，避免发生死锁。</li>
+<li>使用异常处理机制捕获并处理异常，避免应用程序崩溃或阻塞。</li>
+<li>避免在广播接收器中执行耗时操作，尽量保持接收器的执行时间短暂。</li>
+<li>对于前台服务，确保在规定的时间内完成任务。</li>
+<li>对应用程序的资源使用进行优化，避免占用过多的系统资源。</li>
+<li>通过合理的设计和优化，可以有效减少ANR问题的出现，提升应用程序的响应性和用户体验。</li>
+</ul>
+<hr>
+  <br>
+</li>
+<li><h3 id="LMK-Low-Memory-Killer"><a href="#LMK-Low-Memory-Killer" class="headerlink" title=" LMK (Low Memory Killer)"></a><u> <em><strong>LMK (Low Memory Killer)</strong></em></u></h3><p>  LMK（Low Memory Killer）是Android操作系统中的一个重要组件，用于在系统内存不足时终止或杀死一些应用程序进程，以释放内存资源，从而防止系统崩溃或变得不稳定。LMK是Android系统的一种内存管理机制，旨在优化系统的性能和稳定性。</p>
+<p>  LMK的主要原因在于系统内存有限，当多个应用程序同时运行并占用大量内存时，系统可能会出现内存不足的情况。这可能导致系统性能下降、应用程序响应变慢甚至崩溃。为了应对这种情况，LMK会监测系统内存的使用情况，并在内存资源不足时采取措施。</p>
+<p>  LMK的工作原理如下：</p>
+<ul>
+<li><p><strong>内存分级</strong>： Android将系统内存划分为不同的级别，每个级别有不同的优先级。这些级别从低到高分为多个”类别”（category）。</p>
+</li>
+<li><p><strong>内存压力检测</strong>： Android的内存管理系统会定期检测系统内存的压力情况。如果系统内存紧张，内存压力会增加。</p>
+</li>
+<li><p><strong>内存回收</strong>： 当内存压力升高时，LMK会开始回收内存资源。它会优先终止优先级较低的应用程序进程，释放它们占用的内存。</p>
+</li>
+<li><p><strong>杀进程</strong>： 如果内存压力继续增加，LMK可能会终止更多的应用程序进程，以释放更多的内存资源。这可能会影响到用户在后台运行的应用程序。</p>
+</li>
+</ul>
+<p>  需要注意的是，LMK的设计是为了维护系统的整体稳定性，而不是优先考虑单个应用程序的需求。这意味着，尽管LMK可以确保系统不会因为内存不足而崩溃，但在内存紧张的情况下，一些应用程序可能会被终止以释放资源。</p>
+<p>  开发人员可以通过一些方法来减少应用程序被LMK终止的可能性，例如：</p>
+<ul>
+<li>使用适当的内存管理策略，避免内存泄漏和过度使用内存。</li>
+<li>使用合理的后台任务处理机制，避免占用过多的系统资源。</li>
+<li>避免在后台运行过多的进程或服务，以释放更多的内存资源给前台应用程序。</li>
+<li>使用适当的线程和进程管理，避免长时间运行的任务占用过多的内存。</li>
+<li>通过优化应用程序的内存使用和管理，开发人员可以减少LMK的影响，并提供更好的用户体验。</li>
+</ul>
+<hr>
+  <br>
+</li>
+<li><h3 id="System-Kill"><a href="#System-Kill" class="headerlink" title="System Kill"></a><u><em><strong>System Kill</strong></em></u></h3><p>  “System Kill” 是指 Android 系统在内存紧张的情况下，为了保证系统的稳定性和可用性，选择终止或杀死某些系统进程或服务的行为。这是一种内存管理策略，旨在防止系统耗尽内存资源而导致系统崩溃或不稳定。</p>
+<p>  System Kill 的原因主要是出于系统内存不足的情况。当系统内存紧张，无法满足运行中应用程序和系统进程的内存需求时，系统会采取一些措施来释放内存资源，以防止系统的整体性能下降。System Kill 通常会优先终止一些优先级较低的系统进程，从而为重要的系统进程和前台应用程序腾出更多内存。</p>
+<p>  System Kill 可能影响到一些系统功能和服务，如后台应用程序、系统服务以及一些不常用的进程。然而，系统会优先保留对用户界面、系统核心服务和正在交互的前台应用程序的支持，以确保用户体验和系统的稳定性。</p>
+<p>  在 System Kill 的情况下，一些可能受影响的因素和原因包括：</p>
+<ul>
+<li><strong>后台应用程序</strong>： 优先终止后台运行的应用程序，释放它们占用的内存资源。</li>
+<li><strong>系统服务</strong>： 一些系统服务可能会被终止，导致某些功能受到影响。系统会优先保留核心的系统服务。</li>
+<li><strong>不常用的进程</strong>： 一些不常用的进程可能会被终止，以腾出内存。</li>
+<li><strong>进程优先级</strong>： 系统会根据进程的优先级来决定终止的顺序。优先级较低的进程可能更容易被终止。<br>  <br><br></li>
+</ul>
+<p>  需要注意的是，System Kill 是为了确保系统稳定性而采取的一种内存管理策略。在大多数情况下，用户可能不会察觉到 System Kill 的影响，因为系统会尽量保持核心功能和前台应用的正常运行。开发人员应该注意合理管理应用程序的内存使用，以减少被 System Kill 的可能性，并提供更好的用户体验。</p>
+<hr>
+  <br>
+</li>
+<li><h3 id="SIGNALED"><a href="#SIGNALED" class="headerlink" title="SIGNALED"></a><u><em><strong>SIGNALED</strong></em></u></h3><p>  在 Android 应用程序中，”Signaled异常退出” 是指应用程序在某些特定情况下收到操作系统信号（signal）而导致异常退出的情况。这些信号可能由操作系统或其他进程触发，通常表示了应用程序遇到了一些严重的问题或错误。这种异常退出可以导致应用程序崩溃、强制关闭或异常终止。</p>
+<p>  在 Android 中，一些常见的导致 Signaled 异常退出的原因包括：</p>
+<ul>
+<li><p><strong>SIGSEGV（Segmentation Violation）</strong>： 这是一种段错误信号，表示应用程序试图访问无效的内存地址，通常由于内存访问越界或无效的指针引用导致。</p>
+</li>
+<li><p><strong>SIGABRT（Abort）</strong>： 这是一种中止信号，通常是由于应用程序内部检测到了无法继续运行的错误，比如断言失败或其他逻辑错误。</p>
+</li>
+<li><p><strong>SIGILL（Illegal Instruction</strong>： 这是一种非法指令信号，表示应用程序试图执行不合法的机器指令。</p>
+</li>
+<li><p><strong>SIGBUS（Bus Error）</strong>： 这是一种总线错误信号，表示应用程序试图访问无效的内存地址，类似于 SIGSEGV。</p>
+</li>
+<li><p><strong>SIGFPE（Floating Point Exception）</strong>： 这是一种浮点异常信号，表示应用程序执行了非法的浮点操作，如除以零或溢出。</p>
+</li>
+<li><p><strong>SIGTERM（Termination）</strong>： 这是一种终止信号，通常用于表示应用程序被请求终止，可以由用户、系统或其他进程发起。</p>
+</li>
+<li><p><strong>其他信号</strong>： 还有一些其他的信号，如 SIGHUP、SIGINT、SIGKILL 等，每个信号都有不同的含义和影响。</p>
+</li>
+</ul>
+<p>  这些信号可能是由应用程序内部错误、系统问题、库调用失败等多种原因引发的。在 Android 中，一旦应用程序收到了这些信号，通常会触发异常处理机制，有时可能会导致应用程序崩溃或被系统终止。对于某些信号，应用程序可能有机会进行一些清理操作，但有些信号是无法捕获或忽略的，如 SIGKILL。</p>
+<p>  为了减少 Signaled 异常退出的发生，开发人员可以：</p>
+<ul>
+<li>编写健壮的代码，避免内存越界、非法指令和浮点异常等问题。</li>
+<li>使用适当的异常处理机制来捕获和处理可能出现的异常情况。</li>
+<li>进行严格的代码测试和质量控制，以发现并修复潜在的问题。</li>
+<li>避免在应用程序中使用无效的指针引用或未经初始化的变量。</li>
+<li>使用合适的错误处理和日志记录，以便能够追踪和调试异常情况。</li>
+</ul>
+<hr>
+  <br>
+</li>
+<li><h3 id="EXIT-SELF"><a href="#EXIT-SELF" class="headerlink" title=" EXIT SELF "></a><u> <em><strong>EXIT SELF</strong></em> </u></h3><p>  在 Android 应用程序开发中，”EXIT_SELF” 是指应用程序内部通过编程方式自行选择退出的行为。这意味着应用程序在特定条件下，主动调用代码来触发自身的退出操作，而不是被系统强制退出或由其他外部因素引起的。</p>
+<p>  EXIT_SELF 的原因通常是由于特定的应用逻辑、用户需求或资源管理需要。以下是一些常见的情况和原因，导致 Android 应用程序可能选择进行 EXIT_SELF 操作：</p>
+<ul>
+<li><p><strong>用户主动退出</strong>： 应用程序内部提供了退出按钮或选项，让用户主动退出应用，通常通过调用 finish() 方法来实现。</p>
+</li>
+<li><p><strong>完成任务后退出</strong>： 当应用程序完成某个任务、流程或操作后，根据业务需求，可能选择退出以提供一种流程的结束感。</p>
+</li>
+<li><p><strong>用户状态失效</strong>： 在需要用户登录状态的应用中，如果用户登录状态失效（例如，登录过期），应用程序可能会选择退出，以确保用户数据的安全性。</p>
+</li>
+<li><p><strong>用户权限变更</strong>： 如果用户权限发生变化，导致应用程序无法正常运行或提供所需的功能，可能会选择退出。</p>
+</li>
+<li><p><strong>资源管理</strong>： 在资源紧张的情况下，应用程序可能会自行退出以释放资源，例如网络连接不可用、硬件支持不足等。</p>
+</li>
+<li><p><strong>应用设置</strong>： 用户可能在应用设置中设置了特定的退出条件，当这些条件满足时，应用程序可能会执行退出操作。</p>
+</li>
+<li><p><strong>特殊场景处理</strong>： 在某些情况下，应用程序可能会根据特殊的场景需求，如特定时间、地理位置等，选择退出。</p>
+</li>
+<li><p><strong>测试和调试</strong>： 在测试和调试阶段，开发人员可能会在特定情况下触发退出操作以验证应用程序的行为。</p>
+</li>
+</ul>
+<p>  在实现 EXIT_SELF 操作时，开发人员应该确保在退出前进行必要的资源释放、数据保存、清理等操作，以确保退出过程的平稳和用户体验。同时，也需要考虑应用退出后的行为，如是否显示退出提示、保存用户数据等。</p>
+<p>  总之，EXIT_SELF 是指应用程序自己选择退出，这在某些场景下可以用于提供更好的用户体验或满足业务需求。</p>
+</li>
+</ul>
+<p>以上就是总结的一些Android中的异常退出指标，如有错误欢迎各位大佬指正。</p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Android/">#Android</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%A8%B3%E5%AE%9A%E6%80%A7/">#稳定性</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/05/19/PyScript-%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%9A%84Python/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">PyScript: 浏览器中的Python</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '32qhFfYtzmEuUag1AxeL2n9g-gzGzoHsz',
+                    appKey: 'ueDaCBGRtgfeUh8Fg34bLfn8',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Austin';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Austin</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA%E6%8C%87%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">Android 异常退出指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Crash"><span class="nav-number">1.0.1.</span> <span class="nav-text">Java Crash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Native-Crash"><span class="nav-number">1.0.2.</span> <span class="nav-text">Native Crash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ANR-Application-Not-Response"><span class="nav-number">1.0.3.</span> <span class="nav-text"> ANR (Application Not Response) </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LMK-Low-Memory-Killer"><span class="nav-number">1.0.4.</span> <span class="nav-text"> LMK (Low Memory Killer)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#System-Kill"><span class="nav-number">1.0.5.</span> <span class="nav-text">System Kill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SIGNALED"><span class="nav-number">1.0.6.</span> <span class="nav-text">SIGNALED</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXIT-SELF"><span class="nav-number">1.0.7.</span> <span class="nav-text"> EXIT SELF </span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
