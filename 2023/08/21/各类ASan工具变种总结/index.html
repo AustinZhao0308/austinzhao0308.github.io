@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Austin">
+    
+    <title>
+        
+            各类ASan工具变种总结 |
+        
+        Austin&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":false},"style":{"primary_color":"#1E90FF","avatar":"/images/avatar.jpg","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Hab dich lange nicht gesehen."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Austin&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">各类ASan工具变种总结</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Austin</span>
+                        
+                            <span class="author-label">ECNU</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-21 15:00:00</span>
+        <span class="mobile">2023-08-21 15:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Android/">Android</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Android/">Android</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%A8%B3%E5%AE%9A%E6%80%A7/">稳定性</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <blockquote>
+<p>👉 接手了一个GWP-ASan相关的开发需求，但对ASan不是很了解，在网上查找ASan工具的相关知识后，发现并没有很清楚而统一的对多种ASan工具的变种的介绍，所以决定自己写一篇。<br>如果有不对的地方欢迎大家指正 🥹</p>
+</blockquote>
+<h1 id="各类ASan工具变种总结"><a href="#各类ASan工具变种总结" class="headerlink" title="各类ASan工具变种总结"></a>各类ASan工具变种总结</h1><h3 id="1-ASan简介及面对的问题："><a href="#1-ASan简介及面对的问题：" class="headerlink" title="1. ASan简介及面对的问题："></a>1. ASan简介及面对的问题：</h3><p>在使用高级编程语言 (这里主要指Java、Kotlin) 开发的时候，因为虚拟机的存在，所以我们往往不需要考虑内存访问相关的错误。但是一旦使用了一些底层编程语言 (比如C、C++等) ，来进行与操作系统或硬件直接的交互的底层的Native编程时，则可能会遇到更多的与内存访问相关的错误问题 (因为此时开发者可能需要自行负责内存的分配、释放、访问等，而不是由高级语言进行自动内存管理) 。<br>这些错误问题主要包含了：</p>
+<ol>
+<li><strong>内存泄漏</strong>：不正确的内存分配和释放可能导致内存泄漏，使应用的内存占用不断增加，最终导致应用崩溃或性能下降。</li>
+<li><strong>野指针和悬空指针</strong>：在C&#x2F;C++中，开发者需要手动管理指针，而不当地使用野指针或悬空指针可能导致未定义的行为、崩溃或数据损坏。</li>
+<li><strong>缓冲区溢出</strong>：对于数组或缓冲区的访问不当可能导致缓冲区溢出，从而覆盖其他内存区域的数据，引发各种问题，包括安全漏洞。</li>
+<li><strong>并发和线程安全性</strong>：底层编程可能涉及多线程编程，需要处理并发和线程安全性问题，如竞态条件、死锁等。</li>
+<li><strong>性能优化和调试</strong>：底层编程的性能和调试要求可能更高，需要更深入的优化技巧和工具。</li>
+</ol>
+<p>这些错误会引发很多应用使用上的问题甚至是安全问题，而且往往很难与排查，所以产生了很多处理此类问题的工具，ASan就是其中的一种。本篇博客中我们主要介绍ASan及其两种变体HWASan以及GWP-ASan。</p>
+<h3 id="2-ASan的原理解析"><a href="#2-ASan的原理解析" class="headerlink" title="2. ASan的原理解析"></a>2. ASan的原理解析</h3><p>ASan的全名叫做 Address Sanitizer。我们先来笼统的了解一下它的基本工作过程：</p>
+<ol>
+<li><strong>编译时插桩</strong>：<br>在代码编译阶段，ASan使用<a class="link"   target="_blank" rel="noopener" href="https://akinian.fandom.com/zh/wiki/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8F%92%E6%A1%A9%E6%8A%80%E6%9C%AF?venotify=created" >编译器插桩技术<i class="fas fa-external-link-alt"></i></a>将原始代码进行修改，以在运行时进行内存访问检查。这意味着生成的可执行文件会包含额外的代码，用于记录和检测内存访问操作。</li>
+<li><strong>内存布局重排</strong>：<br>ASan会重新安排程序的内存布局，以便有效地检测内存访问错误。它在每个分配的内存块之前和之后插入“红区”（Redzone） - 一段附加内存，用于检测缓冲区溢出。如果程序尝试访问红区，ASan会立即报告错误。</li>
+<li><strong>元数据存储</strong>：<br>ASan会维护元数据（metadata）来跟踪分配的内存块信息。这些元数据存储在与内存块一起分配的内存块中，并记录有关块的大小、状态等信息。这些信息有助于检测释放后的内存访问错误。</li>
+<li><strong>运行时检查</strong>：<br>当程序运行时，插入的ASan代码会在每个内存访问操作（读取或写入）之前和之后执行。它会检查目标内存是否位于合法的范围内，以及是否与其他内存块重叠。如果发现内存访问错误，ASan会触发报告，并指出错误发生的位置、类型和详细信息。</li>
+<li><strong>报告生成</strong>：<br>当ASan检测到内存错误时，它会生成一个详细的报告，包括错误类型、错误位置、堆栈跟踪等信息。这些报告可以帮助开发者定位和修复问题。</li>
+</ol>
+<p>总结的说，ASan主要由两部分工具组成：插桩模块以及一个运行时库:</p>
+<p>插桩模块主要对所有的内存访问 (memory accss)都去检查该内存所对应的 <a class="link"   target="_blank" rel="noopener" href="https://akinian.fandom.com/zh/wiki/%E5%BD%B1%E5%AD%90%E5%86%85%E5%AD%98_(Shadow_Memory)" >shadow memory<i class="fas fa-external-link-alt"></i></a>的状态。这是静态插桩，需要重新编译。然后为栈上对象和全局对象创建前后的保护区，为检测溢出来做准备。</p>
+<p>而运行时库会替换默认路径的malloc&#x2F;free等函数。为所有堆对象创建前后的保护区，将free掉的堆区域隔离一段时间，避免起马上被分配使用。并且运行时库也会对错误情况进行输出(包括堆栈信息)。</p>
+<h3 id="3-Asan的缺陷"><a href="#3-Asan的缺陷" class="headerlink" title="3. Asan的缺陷"></a>3. Asan的缺陷</h3><p>自从2011年诞生以来，ASAN已经成功地参与了众多大型项目，譬如Chrome和Android。虽然它的表现很突出，但仍然有些地方不尽如人意，重点表现在以下几点：</p>
+<ol>
+<li>ASAN的运行是需要消耗memory和CPU资源的，此外它也会增加代码大小。它的性能相比于之前的工具确实有了质的提升，但仍然无法适用于某些压力测试场景，尤其是需要全局打开的时候。这一点在Android上尤为明显，每当我们想要全局打开ASAN调试某些奇葩问题时，系统总会因为负载过重而跑不起来。</li>
+<li>ASAN对于UseAfterFree的检测依赖于隔离区，而隔离时间是非永久的。也就意味着已经free的区域过一段时间后又会重新被分配给其他人。当它被重新分配给其他人后，原先的持有者再次访问此块区域将不会报错。因为这一块区域的shadow memory不再是0xfd。所以这算是ASAN漏检的一种情况。</li>
+<li>ASAN对于overflow的检测依赖于安全区，而安全区总归是有大小的。它可能是64bytes，128bytes或者其他什么值，但不管怎么样终归是有限的。如果某次踩踏跨过了安全区，踩踏到另一片可寻址的内存区域，ASAN同样不会报错。这是ASAN的另一种漏检。</li>
+</ol>
+<h3 id="4-HWASan-需要64位硬件"><a href="#4-HWASan-需要64位硬件" class="headerlink" title="4. HWASan (需要64位硬件)"></a>4. HWASan (需要64位硬件)</h3><p>HWASAN是ASAN工具的“升级版”，它基本上解决了上面所说的ASAN的3个问题。但是它需要64位硬件的支持，也就是说在32位的机器上该工具无法运行。</p>
+<p>AArch64是64位的架构，指的是寄存器的宽度是64位，但并不表示内存的寻址范围是2^64。真实的寻址范围和处理器内部的总线宽度有关，实际上ARMv8寻址只用到了低48位。也就是说，一个64bit的指针值，其中真正用于寻址的只有低48位。那么剩下的高16位干什么用呢？答案是随意发挥。AArch64拥有地址标记(Address tagging, or top-byte-ignore)的特性，它表示允许软件使用64bit指针值的高8位开发特定功能。</p>
+<p>HWASAN用这8bit来存储一块内存区域的标签(tag)。接下来我们以堆内存示例，展示这8bit到底如何起作用。</p>
+<p>堆内存通过malloc分配出来，HWASAN在它返回地址时会更改该有效地址的高8位。更改的值是一个随机生成的单字节值，譬如0xaf。此外，该分配出来的内存对应的shadow memory值也设为0xaf。需要注意的是，HWASAN中normal memory和shadow memory的映射关系是16➡1，而ASAN中二者的映射关系是8➡1。</p>
+<p>相对于ASan，HWASan有以下的升级与优势：</p>
+<ol>
+<li><p>性能提升：ASan在运行时会插入大量的检查代码，导致程序的性能受到影响。HWASan利用了硬件的辅助，例如硬件内存分页机制，从而在运行时检测内存错误，减少了插桩代码的数量，从而提高了程序的性能。</p>
+</li>
+<li><p>减少内存占用：ASan需要为每个分配的内存块添加额外的红区（redzone）以及元数据，从而增加了内存占用。HWASan在硬件级别实现了内存保护，不需要额外的红区和元数据，因此可以减少内存占用。</p>
+</li>
+<li><p>硬件支持：HWASan利用了现代处理器的硬件特性，如硬件内存保护单元（MMU）等，从而在硬件层面提供内存错误检测，使得检测过程更高效。</p>
+</li>
+<li><p>适用于大型程序：由于ASan插桩代码较多，对于大型程序可能产生较大的性能开销。HWASan通过硬件支持能够更好地适应大型程序，减少了性能开销。</p>
+</li>
+<li><p>兼容性：HWASan可以与现有的ASan代码一起使用，开发者可以根据需要在不同的场景中选择使用ASan或HWASan。</p>
+</li>
+</ol>
+<h3 id="5-GWP-ASan-GWP-ASan-Will-Provide-Allocation-SANity"><a href="#5-GWP-ASan-GWP-ASan-Will-Provide-Allocation-SANity" class="headerlink" title="5. GWP-ASan (GWP-ASan Will Provide Allocation SANity)"></a>5. GWP-ASan (GWP-ASan Will Provide Allocation SANity)</h3><p>与 HWASan 或 Malloc 调试 不同，GWP-ASan 不需要源代码或重新编译（即使用预构建文件），并且同时适用于 32 位和 64 位进程（但 32 位崩溃的调试信息较少）。</p>
+<h4 id="a-GWP-ASan与ASan的区别："><a href="#a-GWP-ASan与ASan的区别：" class="headerlink" title="a. GWP-ASan与ASan的区别："></a>a. GWP-ASan与ASan的区别：</h4><p>GWP-ASan（Google’s Weak-Point AddressSanitizer）是AddressSanitizer（ASan）的一个优化版本，主要针对内存错误的“弱点”进行检测，以减少对性能的影响。以下是GWP-ASan相比于传统ASan的优化之处：</p>
+<ol>
+<li><p>性能优化：传统的ASan在检测内存错误方面非常强大，但在某些情况下会产生较大的性能开销。GWP-ASan则专注于内存错误的“弱点”，通过使用监视指针来管理内存，减少了不必要的检查，从而降低了性能开销。</p>
+</li>
+<li><p>精简的内存保护：GWP-ASan使用了一种更轻量级的内存保护方法，称为“监视指针”。这些指针位于内存块的开头和结尾，用于检测内存溢出、内存释放后的使用等问题。相比于传统ASan需要在每个分配的内存块中插入大量的元数据，GWP-ASan的内存保护方法更为精简。</p>
+</li>
+<li><p>更适用于生产环境：传统的ASan通常用于开发和测试阶段，因为它可能会对性能产生较大的影响。而GWP-ASan专注于在生产环境中提供轻量级的内存错误检测，它的目标是尽可能减少性能开销，从而使得在实际生产环境中使用更为可行。</p>
+</li>
+<li><p>定位“弱点”错误：GWP-ASan主要关注于检测内存错误的“弱点”，如使用已释放的内存、使用悬空指针等。传统ASan的目标更广泛，可以发现更多类型的内存错误。</p>
+</li>
+</ol>
+<p>需要注意的是，GWP-ASan并不是传统ASan的替代品，而是一种针对特定场景和目标的优化版本。如果开发者关注在生产环境中的轻量级内存错误检测，以及减少性能开销，那么GWP-ASan可能是一个更好的选择。然而，对于需要广泛和深入的内存错误检测的情况，传统ASan可能更为适合。</p>
+<hr>
+<h4 id="b-GWP-ASan与HWASan的区别"><a href="#b-GWP-ASan与HWASan的区别" class="headerlink" title="b. GWP-ASan与HWASan的区别"></a>b. GWP-ASan与HWASan的区别</h4><p>GWP-ASan（Google’s Weak-Point AddressSanitizer）和HWASan（Hardware-Assisted AddressSanitizer）都是内存错误检测技术的变种，但它们在实现和目标方面存在一些区别。以下是GWP-ASan相对于HWASan的区别：</p>
+<ol>
+<li><p>实现原理：</p>
+<ul>
+<li>GWP-ASan：GWP-ASan是基于软件的内存错误检测技术，使用特殊的监视指针来管理内存块，并关注于内存错误的“弱点”。</li>
+<li>HWASan：HWASan是基于硬件的内存错误检测技术，利用硬件支持来提高内存错误检测的性能和效率。</li>
+</ul>
+</li>
+<li><p>目标和重点：</p>
+<ul>
+<li>GWP-ASan：GWP-ASan主要关注于内存错误的“弱点”，如使用已释放的内存、使用悬空指针等。它旨在在生产环境中提供轻量级的内存错误检测，以减少对性能的影响。</li>
+<li>HWASan：HWASan的目标是提高内存错误检测的性能和效率，它利用硬件辅助来加速内存错误的检测过程，适用于需要更高性能的场景。</li>
+</ul>
+</li>
+<li><p>性能开销：</p>
+<ul>
+<li>GWP-ASan：相比传统的ASan，GWP-ASan试图降低内存错误检测的性能开销，专注于生产环境中的轻量级检测。</li>
+<li>HWASan：HWASan通过硬件支持提供内存错误检测，可以更有效地减少运行时的性能开销。</li>
+</ul>
+</li>
+<li><p>硬件支持：</p>
+<ul>
+<li>GWP-ASan：GWP-ASan不依赖于特定的硬件支持，它是基于软件的解决方案。</li>
+<li>HWASan：HWASan利用了现代处理器的硬件特性，如硬件内存分页机制，以提高内存错误检测的效率。</li>
+</ul>
+</li>
+</ol>
+<p>选择使用GWP-ASan还是HWASan取决于具体的应用场景和需求。如果你关注的是在生产环境中提供轻量级的内存错误检测，并且希望减少性能开销，那么GWP-ASan可能更适合。如果你需要更高性能的内存错误检测，并且你的硬件支持HWASan的特性，那么HWASan可能是更好的选择。</p>
+<h3 id="6-总结"><a href="#6-总结" class="headerlink" title="6.总结"></a>6.总结</h3><p>本文全面介绍了多种ASan工具变种，用于解决底层编程语言中的内存错误问题。ASan作为主要工具，通过编译时插桩和运行时检查，有效地识别内存泄漏、野指针、缓冲区溢出等问题。然而，ASan也存在一些性能和漏检方面的限制。HWASan在64位硬件上实现了硬件辅助，提升了性能和内存利用率，成为ASan的升级版。而GWP-ASan专注于内存错误的“弱点”，提供了轻量级的生产环境内存错误检测。这些工具各有优势，开发者可根据需求选择最适合的工具，以提升应用程序的质量和性能。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1657154" >https://cloud.tencent.com/developer/article/1657154<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://akinian.fandom.com/zh/wiki/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8F%92%E6%A1%A9%E6%8A%80%E6%9C%AF" >https://akinian.fandom.com/zh/wiki/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8F%92%E6%A1%A9%E6%8A%80%E6%9C%AF<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://akinian.fandom.com/zh/wiki/%E5%BD%B1%E5%AD%90%E5%86%85%E5%AD%98_(Shadow_Memory)" >https://akinian.fandom.com/zh/wiki/%E5%BD%B1%E5%AD%90%E5%86%85%E5%AD%98_(Shadow_Memory)<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Android/">#Android</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%A8%B3%E5%AE%9A%E6%80%A7/">#稳定性</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/11/Android%20App%20%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Android App 异常退出指标总结</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '32qhFfYtzmEuUag1AxeL2n9g-gzGzoHsz',
+                    appKey: 'ueDaCBGRtgfeUh8Fg34bLfn8',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Austin';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Austin</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%84%E7%B1%BBASan%E5%B7%A5%E5%85%B7%E5%8F%98%E7%A7%8D%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">各类ASan工具变种总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ASan%E7%AE%80%E4%BB%8B%E5%8F%8A%E9%9D%A2%E5%AF%B9%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. ASan简介及面对的问题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ASan%E7%9A%84%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. ASan的原理解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Asan%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. Asan的缺陷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HWASan-%E9%9C%80%E8%A6%8164%E4%BD%8D%E7%A1%AC%E4%BB%B6"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. HWASan (需要64位硬件)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-GWP-ASan-GWP-ASan-Will-Provide-Allocation-SANity"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. GWP-ASan (GWP-ASan Will Provide Allocation SANity)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-GWP-ASan%E4%B8%8EASan%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">a. GWP-ASan与ASan的区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-GWP-ASan%E4%B8%8EHWASan%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">b. GWP-ASan与HWASan的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%80%BB%E7%BB%93"><span class="nav-number">1.0.6.</span> <span class="nav-text">6.总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">1.1.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
