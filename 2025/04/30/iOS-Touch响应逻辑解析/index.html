@@ -190,51 +190,48 @@
 <p>部分知识源于网络学习，如有错误欢迎指正</p>
 </blockquote>
 <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>尝试学习了iOS响应触摸方式的某些步骤后，发现大部分文章都会选择性的省略某些步骤，阅读后还是会有一知半解的感觉，所以决定自己从头分析一下我们手中的iPhone是如何处理我们的每一次点击、滑动的。</p>
+<br/>
+
 <hr>
 <h1 id="二、交互过程"><a href="#二、交互过程" class="headerlink" title="二、交互过程"></a>二、交互过程</h1><h2 id="1-从触摸屏幕，到系统对触摸事件的封装"><a href="#1-从触摸屏幕，到系统对触摸事件的封装" class="headerlink" title="1. 从触摸屏幕，到系统对触摸事件的封装"></a>1. 从触摸屏幕，到系统对触摸事件的封装</h2><p>我们手中的iPhone使用的屏幕，大都是 <strong>“电容触控屏”</strong>，这样的屏幕由一个覆盖着透明导电材料的感应网格组成，当我们的手指靠近或者触摸屏幕的时候，<strong>屏幕网格上的电场分布会变化</strong>，而手机就会通过检测到的电荷变化，来推测出手指的坐标位置。</p>
 <p>采集到触摸信息后，通过 <strong>触摸控制器芯片</strong> 把采集到的信息，打包成标准输入事件，并且交给驱动、I&#x2F;O Kit来处理。</p>
 <p>而 I&#x2F;O Kit 会通过与iOS的BackBoard的配合，由BackBoard来进行原始触摸数据的解析，并<strong>判断他属于哪个App的窗口</strong>。一旦系统判断发现了这个触摸事件应该交给前台App进行处理，那么就会将这个事件 <strong>转入UIKit层</strong> 来进行处理！</p>
-<aside>
-💡
-
-<p><strong>SpringBoard 与 BackBoard</strong></p>
+<blockquote>
+<p>💡 <strong>SpringBoard 与 BackBoard</strong></p>
 <p>SpringBoard是iOS系统中的一个核心进程，主要负责管理应用程序的启动、切换和显示。它控制着主屏幕（Home Screen）的显示、应用图标的布局、通知中心等UI元素，可以说是用户与iOS系统交互的主要界面管理者。</p>
 <p>BackBoard是iOS系统中的另一个重要组件，主要负责处理底层的触摸事件和硬件输入。它作为系统和硬件之间的中间层，接收来自触摸控制器的输入事件，并将其转发给合适的应用程序或系统组件。BackBoard的存在使得触摸事件的处理更加高效和统一。</p>
 <p>这两个组件的协同工作，保证了iOS系统流畅的触摸响应体验：BackBoard负责接收和预处理触摸事件，而SpringBoard则负责根据这些事件执行相应的UI操作。</p>
-</aside>
+</blockquote>
+<br/>
+<br/>
 
 <h2 id="2-当事件分配给App，初步进入UIKit层后…"><a href="#2-当事件分配给App，初步进入UIKit层后…" class="headerlink" title="2. 当事件分配给App，初步进入UIKit层后…"></a>2. 当事件分配给App，初步进入UIKit层后…</h2><ul>
-<li><p>在这里先介绍两个核心的概念：<strong>什么是UIApplication？什么是Runloop？</strong></p>
-  <aside>
-  💡
-  
-<p>  <strong>UIApplication</strong></p>
-<p>  UIApplication是iOS应用程序的核心对象，每个iOS应用都有且仅有一个UIApplication实例，它在应用启动时由系统自动创建。这个单例对象主要负责：</p>
+<li>在这里先介绍两个核心的概念：<strong>什么是UIApplication？什么是Runloop？</strong><blockquote>
+<p>💡 <strong>UIApplication</strong></p>
+<p>UIApplication是iOS应用程序的核心对象，每个iOS应用都有且仅有一个UIApplication实例，它在应用启动时由系统自动创建。这个实例对象主要负责：</p>
 <ul>
 <li>管理应用程序的生命周期（启动、挂起、恢复、终止等状态）</li>
 <li>处理系统事件（包括触摸事件、远程通知等）</li>
 <li>维护一个开放的URL列表（处理应用间通信）</li>
 <li>协调其他高级app行为（如状态栏的显示、后台任务等）</li>
 </ul>
-<p>  在事件处理方面，UIApplication扮演着重要角色。当系统将触摸事件传递给应用程序时，事件会首先经过UIApplication对象。UIApplication会将这些事件放入事件队列中，然后在主线程的下一个运行循环中，将它们派发给合适的响应者对象进行处理。</p>
-<p>  UIApplication的这种设计保证了事件处理的有序性和可控性，同时也为开发者提供了一个统一的接口来管理应用程序的行为。</p>
-  </aside>
-  
-  <aside>
-  💡
-  
-<p>  <strong>Runloop</strong></p>
-<p>  Runloop（运行循环）是iOS中一个核心的事件处理机制，它维护了一个持续运行的循环，用于处理输入事件、定时器和其他各种任务。其主要职责包括：</p>
+<p>在事件处理方面，UIApplication扮演着重要角色。当系统将触摸事件传递给应用程序时，事件会首先经过UIApplication对象。UIApplication会将这些事件放入事件队列中，然后在主线程的下一个运行循环中，将它们派发给合适的响应者对象进行处理。</p>
+<p>UIApplication的这种设计保证了事件处理的有序性和可控性，同时也为开发者提供了一个统一的接口来管理应用程序的行为。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>Runloop</strong></p>
+<p>Runloop（运行循环）是iOS中一个核心的事件处理机制，它维护了一个持续运行的循环，用于处理输入事件、定时器和其他各种任务。其主要职责包括：</p>
 <ul>
 <li>接收和处理各种事件（用户输入、系统事件等）</li>
 <li>调度定时器的触发</li>
 <li>处理UI更新</li>
 <li>协调线程间的通信</li>
 </ul>
-<p>  每个线程都可以有自己的Runloop，但只有主线程的Runloop是默认创建并运行的。其他线程的Runloop需要手动创建和运行。</p>
-<p>  在事件处理的过程中，Runloop扮演着重要角色：它会不断地从事件队列中取出事件，将其分发给相应的处理者。当没有事件需要处理时，Runloop会使线程进入休眠状态，从而节省系统资源。一旦有新的事件到来，Runloop就会被唤醒，继续处理新的事件。</p>
-<p>  这种机制确保了应用程序能够持续响应用户输入，同时在没有任务时不会占用过多系统资源。对于触摸事件的处理，Runloop确保了事件能够按照正确的顺序被处理，并维护了整个事件响应链的稳定运行。</p>
-  </aside></li>
+<p>每个线程都可以有自己的Runloop，但只有主线程的Runloop是默认创建并运行的。其他线程的Runloop需要手动创建和运行。</p>
+<p>在事件处理的过程中，Runloop扮演着重要角色：它会不断地从事件队列中取出事件，将其分发给相应的处理者。当没有事件需要处理时，Runloop会使线程进入休眠状态，从而节省系统资源。一旦有新的事件到来，Runloop就会被唤醒，继续处理新的事件。</p>
+<p>这种机制确保了应用程序能够持续响应用户输入，同时在没有任务时不会占用过多系统资源。对于触摸事件的处理，Runloop确保了事件能够按照正确的顺序被处理，并维护了整个事件响应链的稳定运行。</p>
+</blockquote>
+</li>
 </ul>
 <p>当前App的主线程runloop是基于  <code>CFRunLoop</code> 的，而UIKit会在 <code>UIApplication</code> 主循环中监听是否有新的事件到来 ，当一个触摸的事件到达这个 <code>UIApplication</code> 的时候，<strong>UIKit会将其封装为UITouch与UIEvent</strong>：</p>
 <ul>
@@ -243,10 +240,10 @@
 </ul>
 <p>一个UIEvent里可能包含了多个UITouch，系统先创建UITouch，然后把这些touches封装进了UIEvent，再交给App</p>
 <p>等当前的 <code>UIEvent</code> 封装好后，<code>UIApplication</code> 会把这个Event分发给当前的 <code>UIWindow</code>，这个步骤就是我们常说的sendEvent：</p>
-<aside>
-💡
+<br/>
 
-<p><strong>UIWindow</strong></p>
+<blockquote>
+<p>💡 <strong>UIWindow</strong></p>
 <p>UIWindow是iOS应用程序中视图层次结构的最顶层容器，继承自UIView。每个iOS应用程序至少需要一个UIWindow实例（通常称为主窗口）来展示内容。UIWindow在视图层级中扮演着关键角色：</p>
 <ul>
 <li>作为视图层次结构的根视图，所有的UI元素最终都必须添加到UIWindow上才能显示</li>
@@ -259,12 +256,11 @@
 <li>其中keyWindow（现在更推荐使用windowScene.keyWindow）是当前接收键盘和其他非触摸事件的主窗口</li>
 </ul>
 <p>当一个事件通过sendEvent到达UIWindow后，UIWindow会通过hitTest:withEvent:方法来确定第一响应者，这个响应者通常是用户触摸点所在的最上层的视图。</p>
-</aside>
+</blockquote>
+<br/>
 
-<aside>
-💡
-
-<p><strong>sendEvent</strong></p>
+<blockquote>
+<p>💡 <strong>sendEvent</strong></p>
 <p>sendEvent 是 <code>UIApplication</code>和<code>UIWindow</code>都实现的一个方法，它的完整声明是：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sendEvent:(<span class="built_in">UIEvent</span> *)event;</span><br></pre></td></tr></table></figure>
 
@@ -285,7 +281,9 @@
 </li>
 </ul>
 <p>值得注意的是，这个方法通常不需要我们自己去调用或重写，它是UIKit框架内部用于事件分发的重要机制。</p>
-</aside>
+</blockquote>
+<br/>
+<br/>
 
 <h2 id="3-UIWindow是如何处理触摸event的？"><a href="#3-UIWindow是如何处理触摸event的？" class="headerlink" title="3. UIWindow是如何处理触摸event的？"></a>3. UIWindow是如何处理触摸event的？</h2><p>在上一部分，UIApplication通过sendEvent，把事件分发给了当前活跃中的UIWindow：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] sendEvent:event];</span><br></pre></td></tr></table></figure>
@@ -307,6 +305,9 @@
 <li>Z轴最上：<code>// 先检查最上层 subview（数组倒序）</code></li>
 <li>最深处（递归）：<code>// 会一直往下递归查找 subview 中最深的匹配者</code></li>
 </ul>
+<br/>
+<br/>
+
 <h2 id="4-找到了最适合响应的View后，View会如何处理这个响应事件"><a href="#4-找到了最适合响应的View后，View会如何处理这个响应事件" class="headerlink" title="4. 找到了最适合响应的View后，View会如何处理这个响应事件"></a>4. 找到了最适合响应的View后，View会如何处理这个响应事件</h2><p>在通过hitTest找到了这个View后：</p>
 <ol>
 <li>系统将其赋值给touch.view</li>
@@ -363,13 +364,22 @@
 <td>重写 <code>hitTest:</code> 或 <code>pointInside:</code> 并配合 touches 系列方法</td>
 </tr>
 </tbody></table>
+<br/>
+<br/>
+<br/>
+
 <hr>
 <h1 id="三、事件处理过程-技术角度"><a href="#三、事件处理过程-技术角度" class="headerlink" title="三、事件处理过程 (技术角度)"></a>三、事件处理过程 (技术角度)</h1><p>那么经过了上边的第二部分，我们就已经梳理好了点击事件被手机响应的整个流程，那么现在我们再从技术视角总结一下这个过程，来形成更好的理解：</p>
+<br/>
+
 <h2 id="UIApplication层"><a href="#UIApplication层" class="headerlink" title="UIApplication层"></a>UIApplication层</h2><p>触摸到达UIApplication，封装为UIEvent 与 UITouch：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIEvent</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *allTouches;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
 <p>最终事件通过 [UIApplication sendEvent:] 送入App的主事件循环</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sendEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">		<span class="comment">//交给当前keyWindow</span></span><br><span class="line">		[<span class="keyword">self</span>.keyWindow sendEvent:event];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br/>
+<br/>
 
 <h2 id="UIWindow-amp-UIView-hitTest层"><a href="#UIWindow-amp-UIView-hitTest层" class="headerlink" title="UIWindow &amp; UIView hitTest层"></a>UIWindow &amp; UIView hitTest层</h2><p>UIWindow开始调用自己的sendEvent，来分发事件(再次提醒UIWindow是UIView的子类)</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UIWindow.m</span></span><br><span class="line">- (<span class="keyword">void</span>)sendEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">UITouch</span> *touch <span class="keyword">in</span> [event allTouches]) &#123;</span><br><span class="line">        <span class="built_in">CGPoint</span> location = [touch locationInView:<span class="keyword">self</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// ✅ 核心：寻找响应者（目标 View）</span></span><br><span class="line">        <span class="built_in">UIView</span> *targetView = [<span class="keyword">self</span> hitTest:location withEvent:event];</span><br><span class="line">        touch.view = targetView;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ✅ 首先将事件交给 GestureRecognizer</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">UIGestureRecognizer</span> *gr <span class="keyword">in</span> targetView.gestureRecognizers) &#123;</span><br><span class="line">            [gr _receiveTouch:touch];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ✅ 然后调用 touchesXxx 方法</span></span><br><span class="line">        <span class="keyword">switch</span> (touch.phase) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="built_in">UITouchPhaseBegan</span>:</span><br><span class="line">                [targetView touchesBegan:...];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -378,8 +388,13 @@
 <p><code>UIWindow.hitTest → UIView.hitTest（递归）→ 返回最深可响应 View</code></p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UIView.m</span></span><br><span class="line">- (<span class="built_in">UIView</span> *)hitTest:(<span class="built_in">CGPoint</span>)point withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.userInteractionEnabled == <span class="literal">NO</span> || <span class="keyword">self</span>.hidden || <span class="keyword">self</span>.alpha &lt;= <span class="number">0.01</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> pointInside:point withEvent:event])</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 逆序查找子视图（最上层的 subview 最先匹配）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">UIView</span> *subview <span class="keyword">in</span> [<span class="keyword">self</span>.subviews reverseObjectEnumerator]) &#123;</span><br><span class="line">        <span class="built_in">CGPoint</span> subPoint = [subview convertPoint:point fromView:<span class="keyword">self</span>];</span><br><span class="line">        <span class="built_in">UIView</span> *hitView = [subview hitTest:subPoint withEvent:event];</span><br><span class="line">        <span class="keyword">if</span> (hitView) <span class="keyword">return</span> hitView;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<br/>
+<br/>
+
 <h2 id="UIView-响应层"><a href="#UIView-响应层" class="headerlink" title="UIView 响应层"></a>UIView 响应层</h2><p>找到了targetView后，并行或独立的触发Gesture和Touches方法</p>
 <p>(取决于gestureRecognizer.cancelsTouchesInView)</p>
+<br/>
+
 <h3 id="1-GestureRecognizer"><a href="#1-GestureRecognizer" class="headerlink" title="1. GestureRecognizer"></a>1. GestureRecognizer</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">UIGestureRecognizer</span> *gr <span class="keyword">in</span> view.gestureRecognizers) &#123;</span><br><span class="line">    [gr _receiveTouch:touch];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -388,11 +403,16 @@
 <li>若识别成功，进入 <code>.recognized</code> 状态，并调用这个Recognizer的 <code>target-action</code></li>
 <li>此时，若<code>gestureRecognizer.cancelsTouchesInView = YES</code>，则后续的<code>touchesMoved</code>、<code>touchesEnded</code>会被取消。否则照常执行。</li>
 </ul>
+<br/>
+
 <h3 id="2-View的touch响应"><a href="#2-View的touch响应" class="headerlink" title="2. View的touch响应"></a>2. View的touch响应</h3><p>如果这个view没有注册GestureRecognizer，那么在第一步<code>touchesBegan:</code> 后，自然也不会有gesture识别成功，则会继续进入touchesMoved与touchEnded函数：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch.view → touchesBegan:</span><br><span class="line">touch.view → touchesMoved:</span><br><span class="line">touch.view → touchesEnded:</span><br></pre></td></tr></table></figure>
 
 <p>view可以通过重写这些方法来自定义响应：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">		[<span class="keyword">super</span> touchesBegan:touches withEvent:event];</span><br><span class="line">		<span class="comment">// 增加其他逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br/>
+<br/>
 
 <h2 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h2><table>
 <thead>
@@ -433,6 +453,10 @@
 <td><code>touchesBegan:</code> 等</td>
 </tr>
 </tbody></table>
+<br/>
+<br/>
+<br/>
+
 <hr>
 <h1 id="四、结尾"><a href="#四、结尾" class="headerlink" title="四、结尾"></a>四、结尾</h1><p>那么到这里，完整的touch链路就被完全梳理完成了。如有错误欢迎勘误～</p>
 
